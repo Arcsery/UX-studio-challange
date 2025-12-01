@@ -25,7 +25,9 @@
       <ng-container *ngIf="!loading; else loadingTpl">
         <app-contact-item
           *ngFor="let contact of contacts"
-          [contact]="contact">
+          [contact]="contact"
+          (edit)="onEditFromItem($event)"
+          (remove)="onRemoveFromItem($event)">
         </app-contact-item>
       </ng-container>
 
@@ -42,7 +44,6 @@
     [contact]="selectedContact"
     (save)="handleDialogSave($event)"
     (cancel)="closeDialog()"
-    (delete)="handleDialogDelete()"
   ></app-contact-dialog>
 
   <div class="spacer spacer--right"></div>

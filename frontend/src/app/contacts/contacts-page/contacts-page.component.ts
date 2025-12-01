@@ -80,14 +80,45 @@ export class ContactsPageComponent implements OnInit{
         },
         error: (err) => {
           this.loading = false;
-          console.error('Failed to load contacts', err);
+          console.error('Failed to create contact', err);
+        }
+      })
+    }else if(this.dialogMode === 'edit') {
+      console.log(contact)
+      this.contactService.update(contact.id, contact).subscribe({
+        next: (data) =>{
+          this.loadContacts();
+          this.isDialogOpen = false;
+          this.loading = false;
+        },
+        error: (err) => {
+          this.loading = false;
+          console.error('Failed to edit contact', err);
         }
       })
     }
   }
 
-  handleDialogDelete(): void {
-    console.log('DELETE FROM DIALOG', this.selectedContact);
-    this.isDialogOpen = false;
+  onEditFromItem(contact: Contact): void {
+    this.openEditDialog(contact);
+  }
+
+  onRemoveFromItem(contact: Contact): void {
+    if (!contact.id) {
+      return;
+    }
+
+    this.loading = true;
+    this.contactService.delete(contact.id).subscribe({
+      next: () => {
+        this.loadContacts();
+        this.loading = false;
+        this.isDialogOpen = false;
+      },
+      error: err => {
+        console.error('Failed to delete contact', err);
+        this.loading = false;
+      }
+    });
   }
 }

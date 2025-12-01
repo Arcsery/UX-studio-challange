@@ -28,8 +28,34 @@
       <app-icon-call buttonIcon></app-icon-call>
     </app-button>
 
-    <app-button variant="ghost" [iconOnly]="true" [showIcon]="true">
+    <app-button
+      variant="ghost"
+      [iconOnly]="true"
+      [showIcon]="true"
+      (click)="toggleMenu($event)"
+    >
       <app-icon-more buttonIcon></app-icon-more>
     </app-button>
+
+    <div
+      class="contact-item__menu"
+      *ngIf="isMenuOpen"
+      (click)="$event.stopPropagation()"
+    >
+      <app-button (click)="onEditClick()" [variant]="'ghost'" [showIcon]="true">
+        <app-icon-settings buttonIcon></app-icon-settings>
+        <span buttonLabel>Edit</span>
+      </app-button>
+
+      <app-button [variant]="'ghost'" [showIcon]="true">
+        <app-icon-favourite buttonIcon></app-icon-favourite>
+        <span buttonLabel>Favourite</span>
+      </app-button>
+
+      <app-button (click)="onRemoveClick()" [variant]="'ghost'" [showIcon]="true">
+        <app-icon-delete class="contact-item__menu-icon" buttonIcon></app-icon-delete>
+        <span buttonLabel>Remove</span>
+      </app-button>
+    </div>
   </div>
 </div>
