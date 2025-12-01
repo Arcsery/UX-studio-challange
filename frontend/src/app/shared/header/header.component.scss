@@ -1,0 +1,35 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left .title {
+  margin: 0;
+  font-size: 28px;
+}
+
+.center {
+  display: flex;
+  gap: 12px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--color-text-main);
+}
+
+.add-new-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 6px 16px;
+  border-radius: 999px;
+
+  color: var(--color-text-main);
+  cursor: pointer;
+
+  font-size: 14px;
+}

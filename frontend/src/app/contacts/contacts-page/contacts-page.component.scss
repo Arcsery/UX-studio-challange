@@ -1,0 +1,29 @@
+.layout {
+  display: grid;
+  height: 100vh;
+
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 96px 96px 1fr;
+
+  grid-template-areas:
+    "top-left  top       top-right"
+    "icon-arrow header   icon-light-mode"
+    "left      contacts  right";
+}
+
+.spacer--top-left  { grid-area: top-left; }
+.spacer--top       { grid-area: top; }
+.spacer--top-right { grid-area: top-right; }
+.spacer--left      { grid-area: left; }
+.spacer--right     { grid-area: right; }
+
+.icon-arrow        { grid-area: icon-arrow; align-content: center; text-align: end }
+.header            { grid-area: header; align-content: center }
+.icon-light-mode   { grid-area: icon-light-mode; align-content: center }
+.contacts          { grid-area: contacts;}
+
+.layout > * {
+  border: 1px solid var(--divider-color);
+  padding: 20px;
+}
+

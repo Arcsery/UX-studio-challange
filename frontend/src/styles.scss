@@ -1,0 +1,35 @@
+@use 'styles/themes';
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: 'Lexend Deca', system-ui, sans-serif;
+}
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+}
+
+@font-face {
+  font-family: "Glysa";
+  src: url("../public/fonts/Glysa.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Lexend Deca";
+  src: url("../public/fonts/LexendDeca-VariableFont_wght.ttf") format("truetype");
+}
+
+h1 {
+  font-family: Glysa;
+  font-size: 32px;
+  line-height: 48px;
+  letter-spacing: 0;
+}
