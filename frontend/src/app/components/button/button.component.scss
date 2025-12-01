@@ -1,0 +1,57 @@
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 120px;
+  height: 40px;
+
+  padding: 8px 16px 8px 12px;
+  font-size: 14px;
+
+  cursor: pointer;
+  color: var(--color-text-main);
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__label {
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  &--primary {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  &--special {
+    background: linear-gradient(180deg, var(--color-button-special) 0%, var(--color-button-special)  70%);
+    border-radius: 1000px;
+    border: 1px solid transparent;
+
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.1s ease;
+    &:hover {
+      background: linear-gradient(180deg, var(--color-button-special-hover) 0%, var(--color-button-special-hover)  0%);
+    }
+
+  }
+
+  &--ghost {
+    background: transparent;
+    border-color: transparent;
+    width: 20px;
+  }
+}

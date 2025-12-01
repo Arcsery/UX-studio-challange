@@ -4,11 +4,19 @@
   <div class="spacer spacer--top"></div>
   <div class="spacer spacer--top-right"></div>
 
-  <aside class="icon-arrow">←</aside>
+  <aside class="icon-arrow">
+    <app-button [variant]="'ghost'" [showIcon]="true">
+      <app-icon-back-arrow buttonIcon></app-icon-back-arrow>
+    </app-button>
+  </aside>
   <header class="header">
     <app-header></app-header>
   </header>
-  <aside class="icon-light-mode">☀️</aside>
+  <aside class="icon-light-mode">
+      <app-button [variant]="'ghost'" [showIcon]="true">
+        <app-icon-light-mode buttonIcon></app-icon-light-mode>
+      </app-button>
+  </aside>
 
   <div class="spacer spacer--left"></div>
   <section class="contacts">

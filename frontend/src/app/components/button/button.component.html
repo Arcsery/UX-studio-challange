@@ -1,0 +1,19 @@
+<button
+  class="ui-button"
+  [attr.type]="type"
+  [ngClass]="{
+    'ui-button--primary': variant === 'primary',
+    'ui-button--special': variant === 'special',
+    'ui-button--ghost': variant === 'ghost',
+    'ui-button--icon-only': iconOnly
+  }"
+>
+
+  <span class="ui-button__icon" *ngIf="showIcon">
+    <ng-content select="[buttonIcon]"></ng-content>
+  </span>
+
+  <span class="ui-button__label" *ngIf="!iconOnly">
+    <ng-content select="[buttonLabel]"></ng-content>
+  </span>
+</button>
