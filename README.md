@@ -1,6 +1,7 @@
 # UX Studio Challenge
 ### Spring Boot 3.5.8 • Angular 19 • SQLite  
 ### Buza Benjámin
+### buzabenjamin2001@gmail.com
 
 ## Requirements
 
