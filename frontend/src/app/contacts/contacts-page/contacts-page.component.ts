@@ -7,6 +7,7 @@ import {Contact} from '../dto/contact.model';
 import {NgForOf, NgIf} from '@angular/common';
 import {ContactItemComponent} from '../contact-item/contact-item.component';
 import {ContactDialogComponent, ContactDialogMode} from '../../components/contact-dialog/contact-dialog.component';
+import {ContactService} from '../contact.service';
 
 @Component({
   selector: 'app-contacts-page',
@@ -25,43 +26,7 @@ import {ContactDialogComponent, ContactDialogMode} from '../../components/contac
 })
 export class ContactsPageComponent implements OnInit{
 
-  contacts: Contact[] = [
-    {
-      id: 1,
-      name: 'Timothy Lewis',
-      email: 'timothy.lewis@example.com',
-      phone: '+36 01 234 5678',
-      imageUrl: 'https://i.pravatar.cc/150?img=5'
-    },
-    {
-      id: 2,
-      name: 'Sarah Wright',
-      email: 'sarah.wright@example.com',
-      phone: '+36 01 234 5678',
-      imageUrl: 'https://i.pravatar.cc/150?img=32'
-    },
-    {
-      id: 3,
-      name: 'Lucy Jones',
-      email: 'lucy.jones@example.com',
-      phone: '+36 01 234 5678',
-      imageUrl: 'https://i.pravatar.cc/150?img=15'
-    },
-    {
-      id: 4,
-      name: 'Jake Perez',
-      email: 'jake.perez@example.com',
-      phone: '+36 01 234 5678',
-      imageUrl: 'https://i.pravatar.cc/150?img=52'
-    },
-    {
-      id: 5,
-      name: 'Adebayo Rodriguez',
-      email: 'ade.bayo@example.com',
-      phone: '+36 01 234 5678',
-      imageUrl: 'https://i.pravatar.cc/150?img=68'
-    }
-  ];
+  contacts: Contact[] = [];
   loading: boolean = false;
 
   isDialogOpen = false;
@@ -72,10 +37,20 @@ export class ContactsPageComponent implements OnInit{
       this.loadContacts();
     }
 
-  loadContacts(): void {
-    this.loading = true;
+  constructor(private contactService: ContactService) {}
 
-    this.loading = false;
+  private loadContacts(): void {
+    this.loading = true;
+    this.contactService.getAll().subscribe({
+      next: (data) => {
+        this.contacts = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Failed to load contacts', err);
+        this.loading = false;
+      },
+    });
   }
 
   openCreateDialog(): void {
@@ -95,8 +70,20 @@ export class ContactsPageComponent implements OnInit{
   }
 
   handleDialogSave(contact: Contact): void {
-    console.log('SAVE FROM DIALOG', this.dialogMode, contact);
-    this.isDialogOpen = false;
+    this.loading = true;
+    if(this.dialogMode === 'create') {
+      this.contactService.create(contact).subscribe({
+        next: (data) =>{
+          this.loadContacts();
+          this.isDialogOpen = false;
+          this.loading = false;
+        },
+        error: (err) => {
+          this.loading = false;
+          console.error('Failed to load contacts', err);
+        }
+      })
+    }
   }
 
   handleDialogDelete(): void {

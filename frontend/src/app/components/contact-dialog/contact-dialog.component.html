@@ -1,13 +1,87 @@
 <div class="dialog-backdrop">
   <div class="dialog">
+    <!-- Title -->
     <h2 class="dialog__title">{{ title }}</h2>
 
+    <!-- Avatar + Add picture button -->
+    <div class="dialog__avatar-row">
+      <div class="dialog__avatar">
+        <!-- ha van kép -->
+        <img
+          *ngIf="model.imageUrl; else avatarPlaceholder"
+          [src]="model.imageUrl"
+          [alt]="model.name || 'Profile picture'"
+        />
+        <!-- placeholder ikon -->
+        <ng-template #avatarPlaceholder>
+          <img src="placeholderProfilePic.png">
+        </ng-template>
+      </div>
+
+      <app-button
+        variant="primary"
+        [showIcon]="true"
+        (click)="onAddPictureClick()"
+      >
+        <app-icon-plus buttonIcon></app-icon-plus>
+        <span buttonLabel>Add picture</span>
+      </app-button>
+    </div>
+
+    <!-- Form fields -->
+    <form class="dialog__form">
+      <!-- Name -->
+      <label class="form-field">
+        <span class="form-field__label">Name</span>
+        <input
+          class="form-field__input"
+          type="text"
+          placeholder="Jamie Wright"
+          [(ngModel)]="model.name"
+          name="name"
+          required
+        />
+      </label>
+
+      <!-- Phone -->
+      <label class="form-field">
+        <span class="form-field__label">Phone number</span>
+        <input
+          class="form-field__input"
+          type="tel"
+          placeholder="+36 01 234 5678"
+          [(ngModel)]="model.phone"
+          name="phone"
+        />
+      </label>
+
+      <!-- Email -->
+      <label class="form-field">
+        <span class="form-field__label">Email address</span>
+        <input
+          class="form-field__input"
+          type="email"
+          placeholder="jamie.wright@mail.com"
+          [(ngModel)]="model.email"
+          name="email"
+          required
+        />
+      </label>
+    </form>
+
+    <!-- Footer buttons -->
     <div class="dialog__footer">
-      <app-button variant="ghost" (click)="onCancelClick()">
+      <app-button
+        variant="ghost"
+        (click)="onCancelClick()"
+      >
         <span buttonLabel>Cancel</span>
       </app-button>
 
-      <app-button variant="special" (click)="onSaveClick()">
+      <app-button
+        variant="special"
+        (click)="onSaveClick()"
+      >
         <span buttonLabel>Done</span>
       </app-button>
     </div>
