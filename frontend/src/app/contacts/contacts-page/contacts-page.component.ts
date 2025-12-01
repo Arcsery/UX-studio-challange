@@ -8,6 +8,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {ContactItemComponent} from '../contact-item/contact-item.component';
 import {ContactDialogComponent, ContactDialogMode} from '../../components/contact-dialog/contact-dialog.component';
 import {ContactService} from '../contact.service';
+import {of, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-contacts-page',
@@ -69,11 +70,19 @@ export class ContactsPageComponent implements OnInit{
     this.isDialogOpen = false;
   }
 
-  handleDialogSave(contact: Contact): void {
+  handleDialogSave(payload: { contact: Contact; imageFile?: File | null }): void {
+    const { contact, imageFile } = payload;
     this.loading = true;
-    if(this.dialogMode === 'create') {
-      this.contactService.create(contact).subscribe({
-        next: (data) =>{
+
+    if (this.dialogMode === 'create') {
+      this.contactService.create(contact).pipe(
+        switchMap(created =>
+          imageFile
+            ? this.contactService.uploadImage(created.id, imageFile)
+            : of(created)
+        )
+      ).subscribe({
+        next: () => {
           this.loadContacts();
           this.isDialogOpen = false;
           this.loading = false;
@@ -82,11 +91,16 @@ export class ContactsPageComponent implements OnInit{
           this.loading = false;
           console.error('Failed to create contact', err);
         }
-      })
-    }else if(this.dialogMode === 'edit') {
-      console.log(contact)
-      this.contactService.update(contact.id, contact).subscribe({
-        next: (data) =>{
+      });
+    } else if (this.dialogMode === 'edit') {
+      this.contactService.update(contact.id, contact).pipe(
+        switchMap(updated =>
+          imageFile
+            ? this.contactService.uploadImage(updated.id, imageFile)
+            : of(updated)
+        )
+      ).subscribe({
+        next: () => {
           this.loadContacts();
           this.isDialogOpen = false;
           this.loading = false;
@@ -95,7 +109,7 @@ export class ContactsPageComponent implements OnInit{
           this.loading = false;
           console.error('Failed to edit contact', err);
         }
-      })
+      });
     }
   }
 

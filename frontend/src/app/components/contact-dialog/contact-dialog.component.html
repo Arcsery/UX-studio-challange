@@ -1,36 +1,44 @@
 <div class="dialog-backdrop">
   <div class="dialog">
-    <!-- Title -->
     <h2 class="dialog__title">{{ title }}</h2>
 
-    <!-- Avatar + Add picture button -->
     <div class="dialog__avatar-row">
       <div class="dialog__avatar">
-        <!-- ha van kép -->
         <img
           *ngIf="model.imageUrl; else avatarPlaceholder"
-          [src]="model.imageUrl"
+          [src]="getImageSrc(model)"
           [alt]="model.name || 'Profile picture'"
         />
-        <!-- placeholder ikon -->
         <ng-template #avatarPlaceholder>
           <img src="placeholderProfilePic.png">
         </ng-template>
       </div>
 
+      <input
+        #fileInput
+        type="file"
+        accept="image/*"
+        class="dialog__file-input"
+        (change)="onFileSelected($event)"
+      />
+
       <app-button
         variant="primary"
         [showIcon]="true"
-        (click)="onAddPictureClick()"
+        (click)="onAddPictureClick(fileInput)"
       >
         <app-icon-plus buttonIcon></app-icon-plus>
-        <span buttonLabel>Add picture</span>
+        <span buttonLabel>{{ pictureButtonLabel }}</span>
       </app-button>
+
+      <app-button (click)="onRemovePictureClick(fileInput)" [variant]="'ghost'" [showIcon]="true">
+        <app-icon-delete class="contact-item__menu-icon" buttonIcon></app-icon-delete>
+        <span buttonLabel>Remove</span>
+      </app-button>
+
     </div>
 
-    <!-- Form fields -->
     <form class="dialog__form">
-      <!-- Name -->
       <label class="form-field">
         <span class="form-field__label">Name</span>
         <input
@@ -43,7 +51,6 @@
         />
       </label>
 
-      <!-- Phone -->
       <label class="form-field">
         <span class="form-field__label">Phone number</span>
         <input
@@ -55,7 +62,6 @@
         />
       </label>
 
-      <!-- Email -->
       <label class="form-field">
         <span class="form-field__label">Email address</span>
         <input
@@ -69,7 +75,6 @@
       </label>
     </form>
 
-    <!-- Footer buttons -->
     <div class="dialog__footer">
       <app-button
         variant="ghost"

@@ -20,16 +20,36 @@ export class ContactService {
     return this.http.get<Contact>(`${this.baseUrl}/${id}`);
   }
 
-  create(contact: Omit<Contact, 'id'>): Observable<Contact> {
-    return this.http.post<Contact>(this.baseUrl, contact);
+  create(contact: Contact): Observable<Contact> {
+    const body = {
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone,
+      imageUrl: contact.imageUrl
+    };
+
+    return this.http.post<Contact>(this.baseUrl, body);
   }
 
-  update(id: number, contact: Omit<Contact, 'id'>): Observable<Contact> {
-    return this.http.put<Contact>(`${this.baseUrl}/${id}`, contact);
+  update(id: number, contact: Contact): Observable<Contact> {
+    const body = {
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone,
+      imageUrl: contact.imageUrl
+    };
+
+    return this.http.put<Contact>(`${this.baseUrl}/${id}`, body);
   }
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
+  uploadImage(id: number, file: File): Observable<Contact> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post<Contact>(`${this.baseUrl}/${id}/image`, formData);
+  }
 }

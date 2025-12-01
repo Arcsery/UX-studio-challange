@@ -2,13 +2,15 @@ package app.challenge.contacts.contact
 
 import app.challenge.contacts.contact.dto.ContactRequest
 import app.challenge.contacts.contact.dto.ContactResponse
+import app.challenge.contacts.files.FileStorageService
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
 @Service
 class ContactService(
-    private val repo: ContactRepository
+    private val repo: ContactRepository,
+    private val fileStorageService: FileStorageService
 ) {
 
     fun getAll(): List<ContactResponse> =
@@ -42,11 +44,29 @@ class ContactService(
         return repo.save(contact).toResponse()
     }
 
-    fun delete(id: Long) {
-        if (!repo.existsById(id)) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found")
+    fun updateImage(id: Long, imageUrl: String): ContactResponse {
+        val contact = repo.findById(id).orElseThrow {
+            ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found")
         }
-        repo.deleteById(id)
+
+        contact.imageUrl?.let { oldUrl ->
+            fileStorageService.delete(oldUrl)
+        }
+
+        contact.imageUrl = imageUrl
+        return repo.save(contact).toResponse()
+    }
+
+    fun delete(id: Long) {
+        val contact = repo.findById(id).orElseThrow {
+            ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found")
+        }
+
+        contact.imageUrl?.let { oldUrl ->
+            fileStorageService.delete(oldUrl)
+        }
+
+        repo.delete(contact)
     }
 }
 

@@ -5,7 +5,6 @@ import {ButtonComponent} from '../../components/button/button.component';
 import {IconCallComponent} from '../../components/icons/icon-call/icon-call.component';
 import {IconMuteComponent} from '../../components/icons/icon-mute/icon-mute.component';
 import {IconMoreComponent} from '../../components/icons/icon-more/icon-more.component';
-import {IconPlusComponent} from '../../components/icons/icon-plus/icon-plus.component';
 import {IconSettingsComponent} from '../../components/icons/icon-settings/icon-settings.component';
 import {IconFavouriteComponent} from '../../components/icons/icon-favourite/icon-favourite.component';
 import {IconDeleteComponent} from '../../components/icons/icon-delete/icon-delete.component';
@@ -18,7 +17,6 @@ import {IconDeleteComponent} from '../../components/icons/icon-delete/icon-delet
     IconCallComponent,
     IconMuteComponent,
     IconMoreComponent,
-    IconPlusComponent,
     IconSettingsComponent,
     IconFavouriteComponent,
     IconDeleteComponent
@@ -32,6 +30,8 @@ export class ContactItemComponent {
   @Output() edit = new EventEmitter<Contact>();
   @Output() favourite = new EventEmitter<Contact>();
   @Output() remove = new EventEmitter<Contact>();
+
+  backendBaseUrl = 'http://localhost:8080';
 
   isMenuOpen = false;
 
@@ -54,4 +54,15 @@ export class ContactItemComponent {
   closeMenuOnOutsideClick(): void {
     this.isMenuOpen = false;
   }
+
+  getImageSrc(contact: Contact): string | null {
+    if (!contact.imageUrl) {
+      return null;
+    }
+    if (contact.imageUrl.startsWith('http')) {
+      return contact.imageUrl;
+    }
+    return `${this.backendBaseUrl}${contact.imageUrl}`;
+  }
+
 }

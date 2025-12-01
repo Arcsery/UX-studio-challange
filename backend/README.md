@@ -1,1 +1,1 @@
-# Contacts Backend (Spring Boot + Kotlin + SQLite)
+# Backend (Spring Boot + Kotlin + SQLite)

@@ -3,7 +3,7 @@
     <div class="contact-item__avatar">
       <img
         *ngIf="contact.imageUrl; else initialsTpl"
-        [src]="contact.imageUrl"
+        [src]="getImageSrc(contact)"
         [alt]="contact.name"
       />
       <ng-template #initialsTpl>
