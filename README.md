@@ -5,7 +5,7 @@
 ## Requirements
 
 ### Backend (Spring Boot)
-- Java **21 is required**, because Spring Boot **3.5.x** supports only Java 21 and above.
+- Java **21 is required**, because Spring Boot **3.5.x** 
 - IntelliJ IDEA is recommended for development due to its excellent Spring Boot integration and built-in productivity features.
 - SQLite is used as the database.
 
@@ -22,4 +22,4 @@
 ### 1. Backend — Spring Boot
 1. Install **Java 21**
 2. Open the project in **IntelliJ IDEA**
-3. Run the backend:
+3. Run the backend
