@@ -1,0 +1,35 @@
+<div class="contact-item">
+  <div class="contact-item__main">
+    <div class="contact-item__avatar">
+      <img
+        *ngIf="contact.imageUrl; else initialsTpl"
+        [src]="contact.imageUrl"
+        [alt]="contact.name"
+      />
+      <ng-template #initialsTpl>
+        <span>{{ contact.name[0] }}</span>
+      </ng-template>
+    </div>
+
+    <div class="contact-item__text">
+      <div><h3>{{ contact.name }}</h3></div>
+      <div class="contact-item__phone" *ngIf="contact.phone">
+        {{ contact.phone }}
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-item__actions">
+    <app-button variant="ghost" [iconOnly]="true" [showIcon]="true">
+      <app-icon-mute buttonIcon></app-icon-mute>
+    </app-button>
+
+    <app-button variant="ghost" [iconOnly]="true" [showIcon]="true">
+      <app-icon-call buttonIcon></app-icon-call>
+    </app-button>
+
+    <app-button variant="ghost" [iconOnly]="true" [showIcon]="true">
+      <app-icon-settings buttonIcon></app-icon-settings>
+    </app-button>
+  </div>
+</div>

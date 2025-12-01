@@ -4,12 +4,14 @@
   justify-content: center;
   gap: 8px;
 
-  width: 120px;
-  height: 40px;
+  &:hover {
+    border-radius: 1000px;
+  }
 
-  padding: 8px 16px 8px 12px;
+  min-height: 40px;
+  background: transparent;
+
   font-size: 14px;
-
   cursor: pointer;
   color: var(--color-text-main);
 
@@ -24,9 +26,20 @@
     white-space: nowrap;
   }
 
+  &--icon-only {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    min-height: 40px;
+    justify-content: center;
+  }
+
   &--primary {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--color-button-primary);
+    opacity: 60%;
     border-color: rgba(255, 255, 255, 0.15);
+    padding: 8px 16px 8px 12px;
+    width: 120px;
 
     &:hover {
       background: rgba(255, 255, 255, 0.12);
@@ -34,24 +47,29 @@
   }
 
   &--special {
-    background: linear-gradient(180deg, var(--color-button-special) 0%, var(--color-button-special)  70%);
+    background: linear-gradient(180deg, var(--color-button-special) 0%, var(--color-button-special) 70%);
     border-radius: 1000px;
     border: 1px solid transparent;
+    padding: 8px 16px 8px 12px;
+    width: 120px;
 
     transition:
       background 0.15s ease,
       border-color 0.15s ease,
       box-shadow 0.15s ease,
       transform 0.1s ease;
-    &:hover {
-      background: linear-gradient(180deg, var(--color-button-special-hover) 0%, var(--color-button-special-hover)  0%);
-    }
 
+    &:hover {
+      background: linear-gradient(180deg, var(--color-button-special-hover) 0%, var(--color-button-special-hover) 70%);
+    }
   }
 
   &--ghost {
     background: transparent;
     border-color: transparent;
-    width: 20px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
   }
 }

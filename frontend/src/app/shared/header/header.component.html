@@ -4,13 +4,13 @@
   </div>
 
   <div class="center">
-    <app-button [variant]="'ghost'" [iconOnly]="true" [showIcon]="true">
+      <app-button [variant]="'ghost'" [iconOnly]="true" [showIcon]="true">
       <app-icon-settings buttonIcon></app-icon-settings>
-    </app-button>
+      </app-button>
     <button class="icon-btn">
       <img class="profile-pic" src="profilePic.jpg" alt="asd">
     </button>
-    <app-button [variant]="'special'" [showIcon]="true">
+    <app-button (click)="onAddClick()" [variant]="'special'" [showIcon]="true">
       <app-icon-plus buttonIcon></app-icon-plus>
       <span buttonLabel>Add new</span>
     </app-button>

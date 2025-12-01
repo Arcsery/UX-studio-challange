@@ -10,7 +10,7 @@
     </app-button>
   </aside>
   <header class="header">
-    <app-header></app-header>
+    <app-header (addContact)="openCreateDialog()"></app-header>
   </header>
   <aside class="icon-light-mode">
       <app-button [variant]="'ghost'" [showIcon]="true">
@@ -20,7 +20,32 @@
 
   <div class="spacer spacer--left"></div>
   <section class="contacts">
-    Contact list
+
+    <section class="contacts">
+      <ng-container *ngIf="!loading; else loadingTpl">
+        <app-contact-item
+          *ngFor="let contact of contacts"
+          [contact]="contact">
+        </app-contact-item>
+      </ng-container>
+
+      <ng-template #loadingTpl>
+        <p>Loading contacts…</p>
+      </ng-template>
+    </section>
+
   </section>
+
+  <app-contact-dialog
+    *ngIf="isDialogOpen"
+    [mode]="dialogMode"
+    [contact]="selectedContact"
+    (save)="handleDialogSave($event)"
+    (cancel)="closeDialog()"
+    (delete)="handleDialogDelete()"
+  ></app-contact-dialog>
+
   <div class="spacer spacer--right"></div>
 </div>
+
+
